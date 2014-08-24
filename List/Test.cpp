@@ -29,7 +29,10 @@ void main()
 	{
 		cout << l[i] << ' ';
 	}
+
+	const List<int> cs = xs;
+	cout << cs[1];
 	cout << endl;
-	cout << l.LastIndexOf(15);
+	cout << l.IndexOf(15);
 	cout << endl;
 }

@@ -256,7 +256,15 @@ public:
 	{
 		return head->data;
 	}
+	const T& Head() const 
+	{
+		return head->data;
+	}
 	T& Tail()
+	{
+		return tail->data;
+	}
+	const T& Tail() const
 	{
 		return tail->data;
 	}
@@ -280,8 +288,27 @@ public:
 			return tmp->data;
 		}
 	}
-
-	List Take(int num)
+	const T& operator[](int index) const 
+	{
+		if (index<0 || index>length - 1)
+			throw "Index out of bonds";
+		if (index == 0)
+			return head->data;
+		else if (index == length - 1)
+			return tail->data;
+		else
+		{
+			int count = 0;
+			Node* tmp = head;
+			while (count < index)
+			{
+				count++;
+				tmp = tmp->next;
+			}
+			return tmp->data;
+		}
+	}
+	List Take(int num)const 
 	{
 		if (num >= length)
 			return *this;
@@ -296,7 +323,7 @@ public:
 		}
 		return tmp;
 	}
-	List Drop(int num)
+	List Drop(int num) const 
 	{
 		if (num <= 0)
 			return *this;
@@ -312,15 +339,15 @@ public:
 		}
 		return tmp;
 	}
-	List TakeRight(int num)
+	List TakeRight(int num) const 
 	{
 		return Drop(length - num);
 	}
-	List DropRight(int num)
+	List DropRight(int num) const 
 	{
 		return Take(length - num);
 	}
-	List TakeWhile(Condition f)
+	List TakeWhile(Condition f) const 
 	{
 		List newList;
 		Node* tmp = head;
@@ -331,7 +358,7 @@ public:
 		}
 		return newList;
 	}
-	List DropWhile(Condition f)
+	List DropWhile(Condition f) const 
 	{
 		List newList;
 		Node* tmp = head;
@@ -346,7 +373,7 @@ public:
 		}
 		return newList;
 	}
-	List TakeRightWhile(Condition f)
+	List TakeRightWhile(Condition f) const 
 	{
 		List newList;
 		Node* tmp = tail;
@@ -357,7 +384,7 @@ public:
 		}
 		return newList;
 	}
-	List DropRightWhile(Condition f)
+	List DropRightWhile(Condition f) const 
 	{
 		List newList;
 		Node* tmp = tail;
@@ -373,7 +400,7 @@ public:
 		return newList;
 	}
 
-	List Filter(Condition f)
+	List Filter(Condition f) const 
 	{
 		if (length == 0)
 			return *this;
@@ -387,7 +414,7 @@ public:
 		}
 		return newList;
 	}
-	List  FilterNot(Condition f)
+	List  FilterNot(Condition f) const 
 	{
 		if (length == 0)
 			return *this;
@@ -402,7 +429,7 @@ public:
 		return newList;
 	}
 
-	bool exists(Condition f)
+	bool exists(Condition f) const 
 	{
 		Node* tmp = head;
 		while (tmp)
@@ -413,7 +440,7 @@ public:
 		}
 		return false;
 	}
-	bool ForAll(Condition f)
+	bool ForAll(Condition f) const 
 	{
 		if (length == 0)
 			return false;
@@ -427,7 +454,7 @@ public:
 		return true;
 	}
 
-	int IndexWhere(Condition f)
+	int IndexWhere(Condition f) const 
 	{
 		if (length == 0)
 			return -1;
@@ -442,11 +469,11 @@ public:
 		}
 		return -1;
 	}
-	int IndexOf(const T& item)
+	int IndexOf(const T& item) const 
 	{
 		return IndexWhere([item](T x){return x == item; });
 	}
-	int LastIndexWhere(Condition f)
+	int LastIndexWhere(Condition f) const 
 	{
 		if (length == 0)
 			return -1;
@@ -461,7 +488,7 @@ public:
 		}
 		return -1;
 	}
-	int LastIndexOf(const T& item)
+	int LastIndexOf(const T& item) const 
 	{
 		return LastIndexWhere([item](T x){return x == item; });
 	}
