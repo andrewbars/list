@@ -35,4 +35,9 @@ void main()
 	cout << endl;
 	cout << l.IndexOf(15);
 	cout << endl;
+	List<int> lsn{ 1, 3, 5, 8, 10 };
+	for (int i = 0; i < lsn.Length(); i++)
+	{
+		cout << lsn[i] << ' ';
+	}
 }

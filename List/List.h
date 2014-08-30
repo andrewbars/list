@@ -1,6 +1,7 @@
 #ifndef LIST_H
 #define LIST_H
 #include <functional>
+#include <initializer_list>
 
 template <typename U, typename T>
 T& operator>>(const U& newElem, T& list);
@@ -32,8 +33,7 @@ public:
 			Node* tmp = that.head->next;
 			while (tmp)
 			{
-				tail->next = new Node(tmp->data);
-				tail->next->prev = tail;
+				tail->next = new Node(tmp->data, tail);
 				tail = tail->next;
 				tmp = tmp->next;
 			}
@@ -51,6 +51,23 @@ public:
 		length = that.length;
 		that.head = nullptr;
 		that.tail = nullptr;
+	}
+	List(std::initializer_list<T> il) :head(nullptr), tail(nullptr), length(0)
+	{
+		for (auto p = il.begin(); p != il.end(); p++)
+		{
+			if (head)
+			{
+				tail->next = new Node(*p,tail);
+				tail = tail->next;
+			}
+			else
+			{
+				head = new Node(*p);
+				tail = head;
+			}
+			length++;
+		}
 	}
 	~List()
 	{
@@ -94,8 +111,7 @@ public:
 			Node* tmp = that.head->next;
 			while (tmp)
 			{
-				tail->next = new Node(tmp->data);
-				tail->next->prev = tail;
+				tail->next = new Node(tmp->data, tail);
 				tail = tail->next;
 				tmp = tmp->next;
 			}
